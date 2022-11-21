@@ -5,7 +5,6 @@ ws.title('Warehouse')
 ws.geometry('610x200')
 ws.config(bg='#BF7C41')
 
-
 choose_list = ['Machine', 'Path', 'Wall']
 
 def change_color1(choice):
@@ -355,5 +354,5 @@ l4.grid(padx=5,row=4, column=5)
 
 
 
-# infinite loop 
+# infinite loop
 ws.mainloop()
