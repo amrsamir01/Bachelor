@@ -8,7 +8,7 @@ bg=PhotoImage(file="C:/Users/amr01/OneDrive/Documents/GitHub/Bachelor/interface/
 my_label = Label(root, image=bg)
 my_label.place(x=0,y=0,relwidth=1,relheight=1)
 
-global nameE, heightEntry, widthEntry, rowEntry, columnEntry
+global nameE, heightEntry, widthEntry, rowEntry, columnEntry, heightDEntry, widthDEntry
 buttonNames=[]
 buttonDic = {}
 buttonColors = {}
@@ -18,8 +18,16 @@ window = Toplevel(root)
 window.geometry('568x300')
 window.config(bg='#7F7FFF')
 
-def area():
+def resize():
+    string1=heightDEntry.get()
+    string2=widthDEntry.get()
+    a=string1
+    b=string2
+    window.geometry(f"{a}x{b}")
+    window.minsize(a, b)
+    window.maxsize(a, b)
 
+def area():
     string1=nameE.get()
     string2=heightEntry.get()
     string3=widthEntry.get()
@@ -75,9 +83,26 @@ column = IntVar()
 columnEntry = Entry(root, textvariable=column,bd=0, width=20)
 columnEntry.grid(padx=15, pady=5, row=4, column=1)
 
-Button(root, text='add', width=15, command=area, bg="green", bd=0).grid(padx=15, pady=5, row=6, column=1)
+widthDLabel = Label(root, text="Dimension Width",bd=0, width=15).grid(padx=0, pady=5, row=0, column=2)
+widthD = IntVar()
+widthDEntry = Entry(root, textvariable=widthD,bd=0, width=20)
+widthDEntry.grid(padx=5, pady=5, row=0, column=3)
+
+heightDLabel = Label(root, text="Dimension Length", bd=0, width=15).grid(padx=0, pady=5, row=1, column=2)
+heightD = IntVar()
+heightDEntry = Entry(root, textvariable=heightD, bd=0, width=20)
+heightDEntry.grid(padx=5, pady=5, row=1, column=3)
+
+Button(root, text='Resize', width=15, command=resize, bg="blue", bd=0).grid(padx=0, pady=5, row=2, column=3)
+
+Button(root, text='add', width=15, command=area, bg="green", bd=0).grid(padx=15, pady=5, row=5, column=1)
 
 exit_button = Button(root, text="Exit", width=10, command=root.destroy, bg="red", bd=0)
-exit_button.grid(padx=15, pady=5, row=7, column=1)
+exit_button.grid(padx=15, pady=5, row=6, column=1)
+
+for i in range(22):
+    for j in range(50):
+        label = Label(window, text=i).grid(pady=6,row=i, column=0)
+        label = Label(window, text=j+1).grid(padx=6,row=0, column=j+1)
 
 root.mainloop()
