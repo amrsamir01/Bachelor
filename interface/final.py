@@ -102,7 +102,7 @@ exit_button.grid(padx=15, pady=5, row=6, column=1)
 
 for i in range(22):
     for j in range(50):
-        label = Label(window, text=i).grid(pady=6,row=i, column=0)
-        label = Label(window, text=j+1).grid(padx=6,row=0, column=j+1)
+        label = Label(window, text=i).grid(row=i, column=0)
+        label = Label(window, text=j+1).grid(row=0, column=j+1)
 
 root.mainloop()
