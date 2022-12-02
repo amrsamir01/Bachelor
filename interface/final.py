@@ -21,11 +21,9 @@ window.config(bg='#7F7FFF')
 def resize():
     string1=heightDEntry.get()
     string2=widthDEntry.get()
-    a=string1
-    b=string2
+    a=string1*150
+    b=string2*150
     window.geometry(f"{a}x{b}")
-    window.minsize(a, b)
-    window.maxsize(a, b)
 
 def area():
     string1=nameE.get()
@@ -43,17 +41,10 @@ def area():
 
     for i,name in enumerate(buttonNames):
         for j,x in enumerate(buttonNames):
-            if(name=='Machine' or name=='machine'):
-                buttonDic[name] = Button(window, text=name, command=clear, height=string2, width=string3, bg="#FFFF00", bd=0)
-            elif(name=='Path' or name=='path'):
-                buttonDic[name] = Button(window, text=name, command=clear, height=string2, width=string3, bg="#0A0A0A",bd=0)
-            elif(name=='Wall' or name=='wall'):
-                buttonDic[name] = Button(window, text=name, command=clear, height=string2, width=string3, bg="#9A9AC0",bd=0)
-
-    for i,name in enumerate(buttonNames):
-        for j,x in enumerate(buttonNames):
-            buttonDic[name].grid(row=string4,column=string5)
-
+            if(name=='Machine'):
+                buttonDic[name] = Button(window, text=name, command=clear, height=string2, width=string3, bg="#FFFF00", bd=0).place(relx=0.5, rely=0.5, x=string4, y=string5, anchor=CENTER)
+            else:
+                buttonDic[name] = Button(window, text=name, command=clear, height=string2, width=string3, bg="#9A9AC0",bd=0).place(relx=0.5, rely=0.5, x=string4, y=string5, anchor=CENTER)
     buttonNames.remove(string1)
 
 nameLabel = Label(root, text="Name",bd=0,width=15).grid(padx=15, pady=5, row=0, column=0)
@@ -61,24 +52,24 @@ nameE = StringVar()
 nameE.set("Choose")
 nameEntry = OptionMenu(root, nameE, *choose_list)
 nameEntry.grid(padx=15, pady=5, row=0, column=1)
-nameEntry.config(text="Choose",bd=0)
+nameEntry.config(text="Choose", bd=0)
 
 heightLabel = Label(root, text="Length", bd=0, width=15).grid(padx=15, pady=5, row=1, column=0)
 height = IntVar()
 heightEntry = Entry(root, textvariable=height, bd=0, width=20)
 heightEntry.grid(padx=15, pady=5, row=1, column=1)
 
-widthLabel = Label(root, text="Width",bd=0, width=15).grid(padx=15, pady=5, row=2, column=0)
+widthLabel = Label(root, text="Width", bd=0, width=15).grid(padx=15, pady=5, row=2, column=0)
 width = IntVar()
 widthEntry = Entry(root, textvariable=width,bd=0, width=20)
 widthEntry.grid(padx=15, pady=5, row=2, column=1)
 
-rowLabel = Label(root, text="Row",bd=0, width=15).grid(padx=15, pady=5, row=3, column=0)
+rowLabel = Label(root, text="x-coordinate",bd=0, width=15).grid(padx=15, pady=5, row=3, column=0)
 row = IntVar()
-rowEntry = Entry(root, textvariable=row,bd=0, width=20)
+rowEntry = Entry(root, textvariable=row, bd=0, width=20)
 rowEntry.grid(padx=15, pady=5, row=3, column=1)
 
-columnLabel = Label(root, text="Column",bd=0, width=15).grid(padx=15, pady=5, row=4, column=0)
+columnLabel = Label(root, text="y-coordinate", bd=0, width=15).grid(padx=15, pady=5, row=4, column=0)
 column = IntVar()
 columnEntry = Entry(root, textvariable=column,bd=0, width=20)
 columnEntry.grid(padx=15, pady=5, row=4, column=1)
@@ -99,10 +90,5 @@ Button(root, text='add', width=15, command=area, bg="green", bd=0).grid(padx=15,
 
 exit_button = Button(root, text="Exit", width=10, command=root.destroy, bg="red", bd=0)
 exit_button.grid(padx=15, pady=5, row=6, column=1)
-
-for i in range(22):
-    for j in range(50):
-        label = Label(window, text=i).grid(row=i, column=0)
-        label = Label(window, text=j+1).grid(row=0, column=j+1)
 
 root.mainloop()
