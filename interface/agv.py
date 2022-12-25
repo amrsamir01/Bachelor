@@ -4,10 +4,7 @@ from tkinter import *
 
 global xAxisEntry, yAxisEntry, startWallEntry, endWallEntry, startPathEntry, endPathEntry
 
-def graph():
-    x = int(xAxisEntry.get())
-    y = int(yAxisEntry.get())
-    m = float(distanceEntry.get())
+def graph(x, y ,m):
     global graph 
     graph = {}
     for i in range(0, x+1,int(m)):
@@ -17,7 +14,6 @@ def graph():
         for all in graph:
             if math.sqrt((node[0]-all[0])**2+(node[1]-all[1])**2)==float(m):
                 connect_edges(node, all, graph)
-    print(graph)
     return graph
 
 def connect_edges(node,all, graph):
@@ -98,17 +94,33 @@ def shortest_path(graph, node1, node2):
     # No path is found
     return []
 
+def dimensions():
+    x = int(xAxisEntry.get())
+    y = int(yAxisEntry.get())
+    m = float(distanceEntry.get())
+    print("Graph:", graph(x, y, m))
+
 def AddWall():
     v1 = tuple(map(int, startWallEntry.get()))
     v2 = tuple(map(int, endWallEntry.get()))
     print("After adding the wall:", Wall(v1, v2))
 
 def find():
+    global x
+    x = []
     start = tuple(map(int, startPathEntry.get()))
     end = tuple(map(int, endPathEntry.get()))
-    print("all paths are:", find_all_paths(graph, start, end))
     print("the shortest path is:", find_shortest_path(graph, start, end))
-    print("the shortest path is:", shortest_path(graph, start, end))
+    return x
+
+def wait():
+    for j in range(len(x)-1):
+        for c in range(1, len(x)-j):
+            s = j + c
+            for i in range(len(x[j])-1):
+                if x[j][i] == x[s][i] and x[j][i+1] == x[s][i+1]:
+                    x[s].insert(i,"wait")
+    print(x)
 
 root = Tk()
 root.title('Warehouse')
@@ -134,7 +146,7 @@ distance = IntVar()
 distanceEntry = Entry(root, textvariable=distance,bd=0, width=20)
 distanceEntry.grid(padx=15, pady=2, row=4, column=1)
 
-Button(root, text='Graph', width=15, command=graph, bg="blue", bd=0).grid(padx=0, pady=2, row=4, column=3)
+Button(root, text='Graph', width=15, command=dimensions, bg="blue", bd=0).grid(padx=0, pady=2, row=4, column=3)
 
 Label2 = Label(root, text="Do you want to add wall?", bd=0, width=20).grid(padx=15, pady=5, row=5, column=1)
 
@@ -163,5 +175,12 @@ endPathEntry = Entry(root, textvariable=endPath,bd=0, width=20)
 endPathEntry.grid(padx=15, pady=2, row=10, column=1)
 
 Button(root, text='Find', width=15, command=find, bg="green", bd=0).grid(padx=0, pady=2, row=10, column=3)
+
+x.append(find())
+print(x)
+
+Button(root, text='View all robots', width=15, command=wait, bg="green", bd=0).grid(padx=0, pady=2, row=11, column=3)
+
+
 
 root.mainloop()
