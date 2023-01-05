@@ -1,5 +1,6 @@
 import ast
 import math
+import random
 
 def connect_edges(node,all):
     if node not in graph:
@@ -110,21 +111,43 @@ w=input("find the path? ")
 while(w=='yes' or w=='Yes'):
     a = ast.literal_eval(input('start point: '))
     b = ast.literal_eval(input('end point: '))
-    print("all paths are:", find_all_paths(graph, a, b))
+    #print("all paths are:", find_all_paths(graph, a, b))
     print()
     print("the shortest path is:", find_shortest_path(graph, a, b))
     print("the shortest path is:", shortest_path(graph, a, b))
-    
     x.append(find_shortest_path(graph, a, b))
     w=input("find another path? ")
 
-for j in range(len(x)-1):
-    for c in range(1, len(x)-j):
-        s = j + c
-        for i in range(len(x[j])-1):
-            if x[j][i] == x[s][i] and x[j][i+1] == x[s][i+1]:
-                x[s].insert(i,"wait")
-count = 1
-for i in x:
-    print("Robot", count, "Final Path:", i)
-    count = count+1
+choose = input("choose wait or FCFS: ")
+if choose == "wait" or choose == "Wait":
+    for j in range(len(x)-1):
+        for c in range(1, len(x)-j):
+            s = j + c
+            for i in range(len(x[j])-1):
+                if x[j][i] == x[s][i] and x[j][i+1] == x[s][i+1]:
+                    x[s].insert(i,"wait")
+    count = 1
+    for i in x:
+        print("AGV", count, "Final Path:", i)
+        count = count+1
+if choose == "FCFS" or choose == "fcfs":
+    def findWaitingTime(x, n, st, wt):
+        wt[0] = 0
+        for i in range(1, n ):
+            wt[i] = st[i - 1] + wt[i - 1]
+
+    def findavgTime(x, n, st):
+        wt = [0] * n
+        total_wt = 0
+        findWaitingTime(x, n, st, wt)
+ 
+        print( "AGV" + " Start time " + "  Waiting time " + "\t\t" + "Shortest path")
+        for i in range(n):
+            total_wt = total_wt + wt[i]
+            print(" " + str(i + 1) + "\t " + str(st[i]) + "\t   " + str(wt[i]) + "\t     " + str(x[i]))
+        print( "Average waiting time = "+ str(total_wt / n))
+    n = len(x)
+    start_time = []
+    for i in range(1, n+1):
+        start_time.append(i)
+    findavgTime(x, n, start_time)
