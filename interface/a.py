@@ -42,8 +42,7 @@ def shortest_path(graph, node1, node2):
     # To keep track of previously visited nodes
     previous_nodes = {node1}
     if node1 == node2:
-        return path_list[0]
-        
+        return path_list[0] 
     while path_index < len(path_list):
         current_path = path_list[path_index]
         last_node = current_path[-1]
@@ -98,20 +97,21 @@ for node in graph:
     for all in graph:
         if math.sqrt((node[0]-all[0])**2+(node[1]-all[1])**2)==m:
             connect_edges(node, all)
-
+print("graph:",graph)
 print("Do you want to add a wall?")
 q=input()
 if(q=='yes' or q=='Yes'):
     a = ast.literal_eval(input('start point of the wall: '))
     b = ast.literal_eval(input('end point of the wall: '))
     Wall(a,b)
+    print("graph after adding wall:",graph)
 
 x = []
 w=input("find the path? ")
 while(w=='yes' or w=='Yes'):
     a = ast.literal_eval(input('start point: '))
     b = ast.literal_eval(input('end point: '))
-    #print("all paths are:", find_all_paths(graph, a, b))
+    print("all paths are:", find_all_paths(graph, a, b))
     print()
     print("the shortest path is:", find_shortest_path(graph, a, b))
     print("the shortest path is:", shortest_path(graph, a, b))
@@ -123,7 +123,7 @@ if choose == "wait" or choose == "Wait":
     for j in range(len(x)-1):
         for c in range(1, len(x)-j):
             s = j + c
-            for i in range(len(x[j])-1):
+            for i in range(len(x[j])-s):
                 if x[j][i] == x[s][i] and x[j][i+1] == x[s][i+1]:
                     x[s].insert(i,"wait")
     count = 1

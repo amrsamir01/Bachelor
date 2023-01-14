@@ -176,8 +176,7 @@ endPathEntry.grid(padx=15, pady=2, row=10, column=1)
 
 Button(root, text='Find', width=15, command=find, bg="green", bd=0).grid(padx=0, pady=2, row=10, column=3)
 
-x.append(find())
-print(x)
+
 
 Button(root, text='View all robots', width=15, command=wait, bg="green", bd=0).grid(padx=0, pady=2, row=11, column=3)
 
